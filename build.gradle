@@ -1,0 +1,69 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+        maven {
+            url = 'https://plugins.gradle.org/m2/'
+        }
+    }
+
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+version = "1.0.0"
+group = "me.piggypiglet.vicemod"
+archivesBaseName = "vicemod"
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+    options.encoding = 'UTF-8'
+}
+
+minecraft {
+    version = "1.12.2-14.23.5.2768"
+    runDir = "run"
+
+    mappings = "snapshot_20171003"
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url = 'https://repo.piggypiglet.me/repository/maven-releases/'
+    }
+}
+
+dependencies {
+    compile('me.piggypiglet:framework-jda:+') {
+        exclude group: 'club.minnced', module: 'opus-java'
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    compile 'club.minnced:opus-java:1.0.4'
+    compile 'com.intellij:annotations:+'
+    compile 'net.kyori:text-api:+'
+    compile 'net.kyori:text-serializer-gson:+'
+    compile 'net.kyori:text-serializer-plain:+'
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

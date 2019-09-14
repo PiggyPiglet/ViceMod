@@ -1,0 +1,16 @@
+[
+{
+  "modid": "vicemod",
+  "name": "ViceMod",
+  "description": "Custom mod for vice versa.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["PiggyPiglet"],
+  "credits": "PiggyPiglet",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
